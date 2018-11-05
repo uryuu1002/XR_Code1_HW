@@ -14,49 +14,32 @@
 // arrayOfPImages. 
 
 String[] arrayOfImageFilenames = new String [3];
-PImage[] arrayOfPImages = new PImage [3];
-PowerPuffGirls [] photos = new PowerPuffGirls[3];
+
+PImage[] arrayOfPImages = new PImage [arrayOfImageFilenames.length];
+
+//PowerPuffGirls [] photos = new PowerPuffGirls[3];
 
 
 void setup() {
   size(600, 600);
 
-  for (int i = 0; i < photos.length; i++) {
-    arrayOfPImages[i] = loadImage("PPG" + i + ".png");
-  }
-  for (int i = 0; i < photos.length; i++) {
-    photos[i] = new PowerPuffGirls(arrayOfPImages[i], random(0, width), random(0, height));
+  for (int i = 0; i < arrayOfImageFilenames.length; i++) {
+    arrayOfImageFilenames[i] = "PPG" + i + ".png";
+    arrayOfPImages[i] = loadImage(arrayOfImageFilenames[i]);
   }
 }
 
 void draw() {
-  for (int i = 0; i < photos.length; i++) {
-    photos[i].update();
-    photos[i].display();
-  }
-}
+  for (int i = 0; i < arrayOfImageFilenames.length; i++) {
+    float x = map (i, 0, arrayOfPImages.length - 1, 0, width-200);
+    
+    //image (arrayOfPImages[i], x, height/2, mouseX, mouseY);        
+    // . width / . height, keeps image in original perporation
+    //image (arrayOfPImages[i], x, height/2, arrayOfPImages[i].width / 2, arrayOfPImages[i].height / 2);
+    
+    //another way of keep image in prop.   
+    float prop = arrayOfPImages[i].width/ arrayOfPImages[i].height;
+    image (arrayOfPImages[i], x, height/2, 100, 100 * prop);
 
-class PowerPuffGirls {
-
-  float x;
-  float y;
-  PImage img;
-  String name;
-
-  PowerPuffGirls(PImage tempImg, float x, float y) {
-    this.x = x;
-    this.y = y;
-    img = tempImg;
-  }
-
-  void update() {
-    y--;
-  }
-
-  void display() {
-    for (int i = 0; i < arrayOfPImages.length; i++) {
-      image(img, x, y);
-      println("PPG" + i + ".png");
-    }
   }
 }

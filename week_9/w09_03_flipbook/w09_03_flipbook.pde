@@ -15,51 +15,53 @@
 // like that could be done in this way - creating the class to contain an array 
 // of images, and having the class's display method cycle through the frames.  
 
-int numFrames = 8;  // The number of frames in the animation
-int currentFrame = 0;
-PImage[] images = new PImage[numFrames];
-TalkingRay [] rays = new TalkingRay[8];
+
+TalkingRay ray;
 
 void setup() {
   size(800, 800);
   frameRate(24);
   imageMode(CENTER);
-  //for (int i = 0; i < images.length; i++) {
-  //  images[i] = loadImage("IMG" + i + ".png");
-  //}
-  images[0]  = loadImage("IMG0.jpg");
-  images[1]  = loadImage("IMG1.jpg"); 
-  images[2]  = loadImage("IMG2.jpg");
-  images[3]  = loadImage("IMG3.jpg"); 
-  images[4]  = loadImage("IMG4.jpg");
-  images[5]  = loadImage("IMG5.jpg"); 
-  images[6]  = loadImage("IMG6.jpg");
-  images[7]  = loadImage("IMG7.jpg");
+  ray = new TalkingRay();
+}
 
-  for (int i = 0; i < rays.length; i++) {
-    rays[i] = new TalkingRay(images[i]);
-  }
-} 
 
 void draw() { 
   background(0);
-  //currentFrame = (currentFrame+1) % numFrames;
-  //image(images[currentFrame], width/2, height/2);
-  for (int i = 0; i < rays.length; i++) {
-    rays[i].display();
-  }
+ 
+  ray.update();
+  ray.display();
+  
 }
 
 class TalkingRay {
 
-  TalkingRay(PImage img) {
+  int numFrames = 8; 
+  int currentFrame = 0;
+  PImage[] images = new PImage[numFrames];
+
+  TalkingRay() {
+    for( int i = 0; i< images.length; i++) {
+      images[i] = loadImage("IMG"+i+".jpg");
+    }
+    
+    //images[0]  = loadImage("IMG0.jpg");
+    //images[1]  = loadImage("IMG1.jpg"); 
+    //images[2]  = loadImage("IMG2.jpg");
+    //images[3]  = loadImage("IMG3.jpg"); 
+    //images[4]  = loadImage("IMG4.jpg");
+    //images[5]  = loadImage("IMG5.jpg"); 
+    //images[6]  = loadImage("IMG6.jpg");
+    //images[7]  = loadImage("IMG7.jpg");
   }
 
   void update() {
+    if (frameCount % 2 == 0) {
+      currentFrame = (currentFrame+1) % numFrames;
+    }
   }
 
   void display() {
-    currentFrame = (currentFrame+1) % numFrames;
     image(images[currentFrame], width/2, height/2);
   }
 }
