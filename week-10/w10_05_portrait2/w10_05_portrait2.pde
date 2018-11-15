@@ -25,7 +25,8 @@ void draw() {
   for (int i = 0; i < img.width; i+=20) {
     for (int j = 0; j < img.height; j+=20) {
       color c = img.get(i, j);
-      fill(c);
+      float b = saturation(c);
+      fill(b);
       rect(i, j, 20, 20);
     }
   }

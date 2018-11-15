@@ -21,24 +21,15 @@
 //the when displaying, it only shows one color
 
 Brushstroke b;
-color c1 = #ffffff;
-color c2 = #e6ffe6;
-color c3 = #b3ffb3;
-color c4 = #80ff80;
-color c5 = #4dff4d;
-color c6 = #00e600;
-color c7 = #00b300;
-color c8 = #008000;
-color c9 = #006600;
-color c10 = #003300;
 
-
+color c; 
 void setup() {
   size(600, 600);
   background(255);
 }
 
 void draw() {
+  c = color(map(mouseX, 0,width, 0,255), map(mouseY, 0,height, 100,255), 175); 
   if (mousePressed) {
     if (frameCount % 5 == 0) {
       b = new Brushstroke(mouseX, mouseY);
@@ -46,7 +37,7 @@ void draw() {
 
     if (b != null) {
       b.update();
-      b.display();
+      b.display(c);
     }
   }
 }
@@ -73,10 +64,8 @@ class Brushstroke {
     y += vy;
   }
 
-  void display() {
-    for (int i = 0; i < whichColor.length; i += 1) {
-      c = whichColor[i];
-    }
+  void display(color c) {
+    this.c = c; 
     fill(c);
     noStroke();
     ellipse(x, y, siz, siz);

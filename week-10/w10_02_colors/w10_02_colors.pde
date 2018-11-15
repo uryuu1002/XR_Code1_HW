@@ -16,9 +16,6 @@
 // is being used by background() change periodically. see the example gif.
 
 
-// RAY'S NOTE: I managed to make it changing color but somehow it is not changing
-// to colors I assigned to its array.
-
 color c1 = #ffffff;
 color c2 = #e6ffe6;
 color c3 = #b3ffb3;
@@ -30,20 +27,21 @@ color c8 = #008000;
 color c9 = #006600;
 color c10 = #003300;
 
-color c;
 
-color [] whichColor = {c1, c2, c3, c4, c5, c6, c7, c8, c9, c10};
+color [] c = {c1, c2, c3, c4, c5, c6, c7, c8, c9, c10};
 
 
 void setup() {
-  whichColor = new color[whichColor.length];
+  size (500,500);
   
-  for (int i = 0; i < whichColor.length; i ++) {
-    c = whichColor[i];
+for (int i = 0; i < c.length; i ++) {
+    c[i]= color (c[int(random(0,10))]);
+    
   }
 }
 
 void draw() {
-  c = c + 1 % 10;
-  background(c);
+  if (frameCount % 60 == 0){
+  background(c[floor(random(0, 10))]);
+  }
 }
